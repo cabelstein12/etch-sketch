@@ -1,6 +1,8 @@
 body > * {
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
 
 }
 
@@ -8,14 +10,17 @@ body > * {
     display: flex;
     flex-wrap: wrap;
     width: 370px;
+    min-width: 370px;
 
 }
-
-
 
 .grid {
     display: flex;
     border: 1px solid black;
     width: 90px;
     height: 90px;
+}
+
+.darken {
+    background-color: black;
 }
