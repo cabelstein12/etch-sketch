@@ -16,11 +16,7 @@ body > * {
 
 }
 
-.clear-btn{
-    width: 80px;
-    height: 40px;
-    
-}
+
 
 .etch-pad {
     display: flex;
@@ -38,17 +34,12 @@ body > * {
     display: flex;
     width: 24px;
     height: 24px;
-    /* border: solid 1px black; */
-    /*    grid size 16x16 24x24 32x32 64x64
-    
-          pixels are 24px 16px 12px  6px
-    */
 }
 
-
-
-
-
+.size-button{
+    padding: 10px;
+    margin: 5px;
+}
 input[type='range'] {
     -webkit-appearance: none;
     appearance: none;
@@ -64,6 +55,13 @@ input[type='range'] {
 .button-bar {
     padding: 20px;
     margin: 5px;
+}
+
+.button-bar > *{
+
+    width: 70px;
+    height: 40px;
+
 }
 
 .darken {

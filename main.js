@@ -1,6 +1,10 @@
+let currentGridSize = 256;
+let gridElements = document.querySelectorAll('.grid');
+
 const header = document.createElement('div');
-const title = document.createElement('h1');
 header.classList.add('header');
+
+const title = document.createElement('h1');
 title.textContent = 'Etch-A-Sketch';
 
 const content = document.createElement('div');
@@ -12,72 +16,71 @@ container.classList.add('etch-pad');
 const buttonBar = document.createElement('div');
 buttonBar.classList.add('button-bar');
 
-const pixelSlider = document.createElement('input');
+const buttonSizes = [16, 24, 32, 64];
 
+const buttons = buttonSizes.map((size) => {
+    const button = document.createElement('button');
+    button.classList.add('size-button');
+    button.textContent = size + ' x ' + size;
+    let pixSize;
+    switch(size){
+        case 16:
+            pixSize = '24px';
+            break;
+        case 24:
+            pixSize = '16px';
+            break;
+        case 32: 
+            pixSize = '12px';
+            break;
+        case 64:
+            pixSize = '6px';
+            break;
+    }
+    button.addEventListener('click', () => changeSize(pixSize, size * size));
+    buttonBar.appendChild(button);
+});
 
-Object.assign(pixelSlider, {
-    type: 'range',  // pixelSize.type = 'range';
-    min: 256,        // pixelSize.min = 16;
-    step: 1,       // pixelSize.step = 16;
-    max: 64*64,
-    value: 256       // pixelSize.max = 96;
-})
+const clearBtn = document.createElement('button');
+clearBtn.textContent = 'Clear Screen'; 
+clearBtn.classList.add('clear-btn');
 
-
-        
-        const clearBtn = document.createElement('button');
-        clearBtn.textContent = 'Clear Screen'; 
-        clearBtn.classList.add('clear-btn');
-        
-        clearBtn.addEventListener('click', () => {
-            gridElements.forEach((element) => {
-                element.classList.remove('darken');
-            })
-        })
-        //append elements
-        document.body.append(header);
-        document.body.append(content);
-        document.body.append(buttonBar);
-        
-        header.append(title);
-        content.append(container);
-        buttonBar.append(pixelSlider);
-        buttonBar.append(clearBtn);
-        
-        function updateGridSize() {
-            currentGridSize = parseInt(pixelSlider.value, 10);
-            gridElements = document.querySelectorAll('.grid');
-            
-
-    createGrid();
+function clearScreen(){
+    gridElements.forEach((element) => {
+        element.classList.remove('darken');
+    });
 }
 
-pixelSlider.addEventListener('input', updateGridSize);
+function changeSize(value, gridSize){
+    currentGridSize = gridSize;
+    createGrid();
+    gridElements.forEach((element) => {
+        element.style.height = value;
+        element.style.width = value;
+    });
+}
 
+clearBtn.addEventListener('click', clearScreen);
+
+document.body.append(header);
+document.body.append(content);
+document.body.append(buttonBar);
+header.append(title);
+content.append(container);
+buttonBar.append(clearBtn);
 
 function createGrid(){
-      container.innerHTML = '';
-    for(let i = 1 ; i <= currentGridSize; i++){
+    container.innerHTML = '';
+    for(let i = 1; i <= currentGridSize; i++){
         const newDiv = document.createElement('div');
-        container.append(newDiv)
-        newDiv.classList.add(`div${i}`)
+        container.append(newDiv);
+        newDiv.classList.add(`div${i}`);
         newDiv.classList.add('grid');
-        newDiv.classList.add('pixel-size');
-        
         newDiv.addEventListener('mouseover', () => {
             newDiv.classList.add('darken');
-
-        })
+        });
     }
-    gridElements = document.querySelectorAll('.grid')
+    gridElements = document.querySelectorAll('.grid');
 }
 
-let currentGridSize = 256;
-
-let gridElements = document.querySelectorAll('.grid');
-
 createGrid();
-
-
-
-
